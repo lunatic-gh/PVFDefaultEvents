@@ -1,0 +1,8 @@
+{
+  "name": "player-voice-framework-default-events",
+  "version-string": "1",
+  "license": "MIT",
+  "dependencies": [
+    "commonlibsse-ng"
+  ]
+}
