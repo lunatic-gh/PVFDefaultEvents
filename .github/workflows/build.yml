@@ -1,0 +1,43 @@
+name: Build Mod
+
+on:
+  push:
+    branches:
+      - '**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Cache vcpkg archives and build directory
+        uses: actions/cache@v3
+        with:
+          path: |
+            %GITHUB_WORKSPACE%\build
+            C:\Users\runneradmin\AppData\Local\vcpkg\archives
+          key: ${{ runner.os }}-vcpkg-${{ hashFiles('**/vcpkg.json') }}
+          restore-keys: ${{ runner.os }}-vcpkg-
+
+      - name: Setup Environment
+        shell: cmd
+        run: |
+          reg add "HKLM\SOFTWARE\Wow6432Node\Bethesda Softworks\Skyrim Special Edition" /v "Installed Path" /t REG_SZ /d "%GITHUB_WORKSPACE%" /f
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_MAKE_PROGRAM=ninja.exe --preset release -S . -B build/release
+
+      - name: Build Project
+        shell: cmd
+        run: |
+          call tools/scripts/build.bat
+
+      - name: Create Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PlayerVoiceFramework - Default Events
+          include-hidden-files: true
+          path: ./run/*
+          retention-days: 90
