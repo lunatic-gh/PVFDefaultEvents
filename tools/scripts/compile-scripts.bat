@@ -26,3 +26,9 @@ xcopy "tools\nl_online\skse64\source\*" "tools\papyrus-include\" /I /Y
 
 :: Compile Scripts
 "tools\pyro\pyro.exe" --compiler-path "tools\papyrus-compiler\PapyrusCompiler.exe" -i skyrimse.ppj
+
+:: Cleanup
+:: Keep "papyrus-include" for local Papyrus Development
+if exist "tools\nl_online" (
+    rmdir "tools\nl_online" /S /Q
+)

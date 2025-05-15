@@ -19,10 +19,10 @@ namespace PVF {
         const auto playerActor = a_event->actor->As<RE::Actor>();
 
         if (a_event->type == SKSE::ActionEvent::Type::kWeaponSwing) {
-            Utils::RegisterCondition("PVEAttackMelee", "AttackType", PVF::CreateConditionFunction([]() -> PVF::DataValue {
+            Utils::RegisterCondition("PVFAttackMelee", "AttackType", PVF::CreateConditionFunction([]() -> PVF::DataValue {
                 return 0;
             }));
-            Utils::SendSoundEvent("PVEAttackMelee");
+            Utils::SendSoundEvent("PVFAttackMelee");
         }
         return RE::BSEventNotifyControl::kContinue;
     }
