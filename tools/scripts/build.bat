@@ -29,7 +29,7 @@ echo D | xcopy /Q /Y ".\build\release\PVFDefaultEvents.pdb" ".\run\SKSE\Plugins"
 xcopy /Q /Y /E ".\Data\*" ".\run"
 
 :: Compile Scripts
-call "tools\scripts\compile-scripts.bat"
+: call "tools\scripts\compile-scripts.bat"
 
 if "%GITHUB_ACTIONS%" NEQ "true" (
     :: Symlink "run" to a new mo2 mod
