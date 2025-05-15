@@ -1,4 +1,6 @@
 /build
+/run
+/.idea
 /tools/pyro
 /tools/nl_online
 /tools/papyrus-include
